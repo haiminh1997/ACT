@@ -30,7 +30,7 @@
                                 <div class="form-group" >
                                     <label>Ảnh chi tiết cửa</label>
                                     <input required id="img" type="file" name="image" class="form-control hidden" onchange="changeImg(this)">
-                                    <img id="avatar" class="thumbnail" width="300px" src="img/new_seo-10-512.png">
+                                    <img id="avatar" class="thumbnail" width="300px" src="{{ asset('layout/backend/img/new_seo-10-512.png') }}">
                                 </div>
                                 <div class="form-group" >
                                     <label>Chiều rộng</label>

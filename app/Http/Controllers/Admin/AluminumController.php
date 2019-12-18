@@ -5,15 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\Admin\AluminumModel;
 use App\Model\Admin\ConstructModel;
+use App\Transformers\AluminumTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Dingo\Api\Routing\Helpers;
 
 class AluminumController extends Controller
 {
+    use Helpers;
+    public function indexAdmin(){
+        $data['alums']= $this->response->collection(AluminumModel::all(), new AluminumTransformer());
+        return $data;
+    }
     public function index(){
-        $data['listconst'] = AluminumModel::all();
-        $data['alums'] = DB::table('aluminums')->paginate(2);
-        return view('admin.aluminum.index',$data);
+//        $data['listconst'] = AluminumModel::all();
+//        $data['alums'] = DB::table('aluminums')->paginate(2);
+        return view('admin.aluminum.index');
     }
     public function getcreate(){
         $data['listconst'] = ConstructModel::all();
@@ -27,7 +34,7 @@ class AluminumController extends Controller
         $aluminum->alu_image = $filename;
         $aluminum->save();
         $request->alu_image->storeAs('aluImg',$filename);
-        return redirect('admin/act/aluminum');
+        return redirect('api/admin/act/aluminum');
     }
     public function store(Request $request){
         $validateData = $request->validate([
@@ -41,7 +48,7 @@ class AluminumController extends Controller
         $item->alu_name = $input['alu_name'];
         $item->alu_image = $input['alu_image'];
         $item->save();
-        return redirect('/admin/aluminun');
+        return redirect('api/admin/aluminun');
     }
     public function edit($id){
         $data['alus']= AluminumModel::find($id);
@@ -56,17 +63,13 @@ class AluminumController extends Controller
 
         $alu = new AluminumModel;
         $arr['alu_name'] = $request->alu_name;
-//        $arr['alu_const'] = $request->alu_const;
-
-//        dd($request->all());
-//        if($request->hasFile('img')){
+        if ($request->hasFile('image')) {
             $img = $request->alu_image->getClientOriginalName();
             $arr['alu_image'] = $img;
             $request->alu_image->storeAs('aluImg',$img);
-//        }
-
+        }
         $alu->where('alu_id',$id)->update($arr);
-        return redirect('admin/act/aluminum');
+        return redirect('api/admin/act/aluminum');
     }
     public function delete($id){
         AluminumModel::destroy($id);

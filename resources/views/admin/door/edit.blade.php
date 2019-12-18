@@ -17,15 +17,15 @@
                         Sửa cửa
                     </div>
                     <div class="panel-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        {{--@if ($errors->any())--}}
+                            {{--<div class="alert alert-danger">--}}
+                                {{--<ul>--}}
+                                    {{--@foreach ($errors->all() as $error)--}}
+                                        {{--<li>{{ $error }}</li>--}}
+                                    {{--@endforeach--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
                         <form method="post" enctype="multipart/form-data" >
                             <div class="form-group">
                                 <label>Tên cửa:</label>
@@ -49,7 +49,7 @@
                                 <input type="submit" name="submit" class="form-control btn btn-primary" value="Sửa" >
                             </div>
                             <div class="form-group">
-                                <a href="{{ asset('admin/act/door') }}" class="form-control btn btn-danger">Hủy bỏ</a>
+                                <a href="{{ asset('api/admin/act/door') }}" class="form-control btn btn-danger">Hủy bỏ</a>
                             </div>
                             {{ csrf_field() }}
                         </form>

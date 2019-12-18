@@ -26,7 +26,7 @@
                                 <div class="form-group" >
                                     <label>Ảnh hệ nhôm</label>
                                     <input required id="img" type="file" name="alu_image" class="form-control hidden" onchange="changeImg(this)">
-                                    <img id="avatar" class="thumbnail" width="300px" src="img/new_seo-10-512.png">
+                                    <img id="avatar" class="thumbnail" width="300px" src="{{ asset('layout/backend/img/new_seo-10-512.png') }}">
                                 </div>
 
                                 <div class="form-group" >
@@ -38,7 +38,7 @@
                                     </select>
                                 </div>
                                 <input type="submit" name="submit" value="Thêm" class="btn btn-primary">
-                                <a href="{{ asset('admin/act/aluminum') }}" class="btn btn-danger">Hủy bỏ</a>
+                                <a href="{{ asset('api/admin/act/aluminum') }}" class="btn btn-danger">Hủy bỏ</a>
                             </div>
                         </div>
                         {{ csrf_field() }}

@@ -4,16 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\Admin\AluminumModel;
+use App\Transformers\DoorTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\Admin\DoorModel;
+use Dingo\Api\Routing\Helpers;
 
 class DoorController extends Controller
 {
+    use Helpers;
+    public function indexAdmin(){
+        $data['doors']= $this->response->collection(DoorModel::all(), new DoorTransformer());
+        return $data;
+    }
     public function index(){
-        $data['listalu'] = DoorModel::all();
-        $data['doors'] = DB::table('doors')->paginate(2);
-        return view('admin.door.index',$data);
+//        $data['listalu'] = DoorModel::all();
+//        $data['doors'] = DB::table('doors')->paginate(2);
+        return view('admin.door.index');
     }
     public function getcreate(){
         $data['listalu'] = AluminumModel::all();
@@ -27,7 +34,7 @@ class DoorController extends Controller
         $door->door_image = $filename;
         $door->save();
         $request->door_image->storeAs('doorImg',$filename);
-        return redirect('admin/act/door');
+        return redirect('api/admin/act/door');
     }
     public function store(Request $request){
         $validateData = $request->validate([
@@ -42,7 +49,7 @@ class DoorController extends Controller
         $item->door_image = $input['door_image'];
 //        $item->door_alu = $input['door_alu'];
         $item->save();
-        return redirect('/admin/door');
+        return redirect('api/admin/door');
     }
     public function edit($id){
         $data['doors']= DoorModel::find($id);
@@ -56,12 +63,13 @@ class DoorController extends Controller
 
         $alu = new DoorModel;
         $arr['door_name'] = $request->door_name;
-        $img = $request->door_image->getClientOriginalName();
-        $arr['door_image'] = $img;
-        $request->door_image->storeAs('doorImg',$img);
-
+        if ($request->hasFile('image')) {
+            $img = $request->door_image->getClientOriginalName();
+            $arr['door_image'] = $img;
+            $request->door_image->storeAs('doorImg',$img);
+        }
         $alu->where('door_id',$id)->update($arr);
-        return redirect('admin/act/door');
+        return redirect('api/admin/act/door');
     }
     public function delete($id){
         DoorModel::destroy($id);

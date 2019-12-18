@@ -4,17 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\Admin\ConstructModel;
+use App\Transformers\ConstructTransformer;
+use App\Transformers\UserTransformer;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Dingo\Api\Routing\Helpers;
 
 class ConstructController extends Controller
 {
+    use Helpers;
+    public function indexAdmin(){
+        $data['consts']= $this->response->collection(ConstructModel::all(), new ConstructTransformer());
+        return $data;
+    }
     public function index(){
-        $data['listuser'] = User::all();
-        $data['consts'] = DB::table('constructs')->get();
-        return view('admin.construct.index',$data);
-}
+        return view('admin.construct.index');
+    }
+
     public function getcreate(Request $request){
         $data['listuser'] = User::all();
         return view('admin.construct.create',$data);
@@ -24,8 +31,7 @@ class ConstructController extends Controller
         $construct->const_name = $request->const_name;
         $construct->const_user = $request->const_user;
         $construct->save();
-//        dd($construct->save());
-        return redirect('admin/act/construct');
+        return redirect('api/admin/act/construct');
     }
     public function store(Request $request){
         $validateData = $request->validate([
@@ -36,7 +42,7 @@ class ConstructController extends Controller
 
         $item->const_name = $input['const_name'];
         $item->save();
-        return redirect('/admin/construct');
+        return redirect('api/admin/construct');
     }
     public function edit($id){
         $data['const'] = ConstructModel::find($id);
@@ -53,7 +59,7 @@ class ConstructController extends Controller
         $item = ConstructModel::find($id);
         $item->const_name = $input['const_name'];
         $item->save();
-        return redirect('/admin/act/construct');
+        return redirect('api/admin/act/construct');
 
     }
     public function delete($id){

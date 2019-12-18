@@ -33,7 +33,7 @@
                                     </select>
                                 </div>
                                 <input type="submit" name="submit" value="Thêm" class="btn btn-primary">
-                                <a href="{{ asset('admin/act/construct') }}" class="btn btn-danger">Hủy bỏ</a>
+                                <a href="{{ asset('act/admin/act/construct') }}" class="btn btn-danger">Hủy bỏ</a>
                             </div>
                         </div>
                         {{ csrf_field() }}

@@ -4,16 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\Admin\DoorModel;
+use App\Transformers\DetailTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\Admin\DetailModel;
+use Dingo\Api\Routing\Helpers;
 
 class DetailController extends Controller
 {
+    use Helpers;
+    public function indexAdmin(){
+        $data['details']= $this->response->collection(DetailModel::all(), new DetailTransformer());
+        return $data;
+    }
     public function index(){
-        $data['listdoor'] = DetailModel::all();
-        $data['details'] = DB::table('detail_doors')->paginate(8);
-        return view('admin.detail.index',$data);
+//        $data['listdoor'] = DetailModel::all();
+//        $data['details'] = DB::table('detail_doors')->paginate(8);
+        return view('admin.detail.index');
     }
     public function getcreate(){
         $data['listdoor'] = DoorModel::all();
@@ -36,7 +43,7 @@ class DetailController extends Controller
         $detail->image = $filename;
         $detail->save();
         $request->image->storeAs('detailImg',$filename);
-        return redirect('admin/act/detail');
+        return redirect('api/admin/act/detail');
     }
     public function store(Request $request){
         $validateData = $request->validate([
@@ -68,7 +75,7 @@ class DetailController extends Controller
         $item->price_glass = $input['price_glass'];
         $item->price_alu = $input['price_alu'];
         $item->save();
-        return redirect('/admin/detail');
+        return redirect('api/admin/detail');
     }
     public function edit($id){
         $data['details']= DetailModel::find($id);
@@ -101,13 +108,14 @@ class DetailController extends Controller
         $arr['price_glass'] = $request->price_glass;
         $arr['price_alu'] = $request->price_alu;
 
-
-        $img = $request->image->getClientOriginalName();
-        $arr['image'] = $img;
-        $request->image->storeAs('detailImg',$img);
+        if ($request->hasFile('image')) {
+            $img = $request->image->getClientOriginalName();
+            $arr['image'] = $img;
+            $request->image->storeAs('detailImg',$img);
+        }
 
         $alu->where('detail_id',$id)->update($arr);
-        return redirect('admin/act/detail');
+        return redirect('api/admin/act/detail');
     }
     public function delete($id){
         DetailModel::destroy($id);
