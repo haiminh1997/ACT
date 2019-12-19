@@ -18,7 +18,7 @@ class Constructs extends Migration
             $table->string('const_name');
             $table->unsignedBigInteger('const_user')->nullable();
             $table->foreign('const_user')
-                ->references('user_id')
+                ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
             $table->timestamps();

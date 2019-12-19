@@ -101,8 +101,8 @@
                 html+='<th class="price_glass">'+l.price_glass+'</th>';
                 html+='<th class="price_alu">'+l.price_alu+'</th>';
                 html+='<th class="option">'+
-                    '<a href="detail/edit/'+l.detail_id+' ">Sửa</a>\n' +
-                    '<a href="detail/delete/'+l.detail_id+' ">Xóa</a>'+
+                    '<a class="btn btn-warning" href="detail/edit/'+l.detail_id+' ">Sửa</a>\n' +
+                    '<a onclick="return confirm(\'Bạn có chắc chắn muốn xóa?\')" class="btn btn-danger" href="detail/delete/'+l.detail_id+' ">Xóa</a>'+
 
                     '</th>';
                 html+='</tr>';

@@ -28,7 +28,7 @@
                                     <label>ID user</label>
                                     <select required name="const_user" class="form-control">
                                         @foreach($listuser as $list)
-                                        <option value="{{ $list->user_id }}">{{ $list->user_name }}</option>
+                                        <option value="{{ $list->id }}">{{ $list->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

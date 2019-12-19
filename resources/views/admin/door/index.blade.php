@@ -72,8 +72,8 @@
                 html+='<th class="doorName">'+l.door_name+'</th>';
                 html+='<th class="doorImage"><img  height="150px" width="150px" src="http://localhost/ACTapi/storage/app/doorImg/'+l.door_image+'"></th>';
                 html+='<th class="option">'+
-                    '<a href="door/edit/'+l.door_id+' ">Sửa</a>\n' +
-                    '<a href="door/delete/'+l.door_id+' ">Xóa</a>'+
+                    '<a class="btn btn-warning" href="door/edit/'+l.door_id+' ">Sửa</a>\n' +
+                    '<a onclick="return confirm(\'Bạn có chắc chắn muốn xóa?\')" class="btn btn-danger" href="door/delete/'+l.door_id+' ">Xóa</a>'+
 
                     '</th>';
                 html+='</tr>';

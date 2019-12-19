@@ -72,8 +72,8 @@
                 html+='<th class="aluName">'+l.alu_name+'</th>';
                 html+='<th class="aluImage"><img  height="150px" width="150px" src="http://localhost/ACTapi/storage/app/aluImg/'+l.alu_image+'"></th>';
                 html+='<th class="option">'+
-                    '<a href="aluminum/edit/'+l.alu_id+' ">Sửa</a>\n' +
-                    '<a href="aluminum/delete/'+l.alu_id+' ">Xóa</a>'+
+                    '<a class="btn btn-warning" href="aluminum/edit/'+l.alu_id+' ">Sửa</a>\n' +
+                    '<a onclick="return confirm(\'Bạn có chắc chắn muốn xóa?\')" class="btn btn-danger" href="aluminum/delete/'+l.alu_id+' ">Xóa</a>'+
 
                     '</th>';
                 html+='</tr>';

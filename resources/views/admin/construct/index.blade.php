@@ -71,8 +71,8 @@
             html+='<th class="constName">'+l.const_name+'</th>';
             html+='<th class="option">'+
                 // +l.const_id+
-                   '<a href="construct/edit/'+l.const_id+' ">Sửa</a>\n' +
-                '<a href="construct/delete/'+l.const_id+' ">Xóa</a>'+
+                   '<a class="btn btn-warning" href="construct/edit/'+l.const_id+' ">Sửa</a>\n' +
+                '<a onclick="return confirm(\'Bạn có chắc chắn muốn xóa?\')" class="btn btn-danger" href="construct/delete/'+l.const_id+' ">Xóa</a>'+
 
                 '</th>';
             html+='</tr>';

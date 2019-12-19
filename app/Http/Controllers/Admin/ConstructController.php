@@ -10,10 +10,17 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Dingo\Api\Routing\Helpers;
+use Tymon\JWTAuth\JWTAuth;
 
 class ConstructController extends Controller
 {
+
     use Helpers;
+    protected $user;
+    public function __construct()
+    {
+        $this->user = JWTAuth::parseToken()->authenticate();
+    }
     public function indexAdmin(){
         $data['consts']= $this->response->collection(ConstructModel::all(), new ConstructTransformer());
         return $data;
